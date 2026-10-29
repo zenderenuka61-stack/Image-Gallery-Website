@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Image Gallery</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 25px;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f3e8ff, #dbeafe);
+            text-align: center;
+        }
+
+        h1 {
+            color: #6a1b9a;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #555;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 30px auto;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 20px #888;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            z-index: 10;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 12px;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>✨ Creative Image Gallery ✨</h1>
+    <p>Click on any image to view it in full size.</p>
+
+    <div class="gallery">
+        <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600"
+             alt="Beautiful landscape">
+
+        <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600"
+             alt="Sunrise landscape">
+
+        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600"
+             alt="Green forest">
+
+        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?w=600"
+             alt="Ocean waves">
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close" id="closeBtn">&times;</span>
+        <img id="largeImage" src="" alt="Full-size preview">
+    </div>
+
+    <script>
+        const images = document.querySelectorAll(".gallery img");
+        const lightbox = document.getElementById("lightbox");
+        const largeImage = document.getElementById("largeImage");
+        const closeBtn = document.getElementById("closeBtn");
+
+        images.forEach(function(image) {
+            image.addEventListener("click", function() {
+                lightbox.style.display = "flex";
+                largeImage.src = image.src;
+                largeImage.alt = image.alt;
+            });
+        });
+
+        closeBtn.addEventListener("click", function() {
+            lightbox.style.display = "none";
+        });
+
+        lightbox.addEventListener("click", function(event) {
+            if (event.target === lightbox) {
+                lightbox.style.display = "none";
+            }
+        });
+    </script>
+
+</body>
+</html>
